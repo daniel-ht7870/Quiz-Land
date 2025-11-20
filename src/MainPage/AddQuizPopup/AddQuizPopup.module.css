@@ -1,0 +1,107 @@
+.add-quiz-popup {
+    z-index: 3;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.add-quiz-popup .add-quiz-popup-window {
+    position: absolute;
+    width: 40%;
+    height: auto;
+    padding: 2em;
+    display: flex;
+    flex-direction: column;
+
+    background-color: white;
+
+    border-radius: 2em;
+}
+
+.add-quiz-popup .add-quiz-popup-window h3 {
+    margin-top: 0;
+    text-align: center;
+}
+
+.add-quiz-popup .add-quiz-popup-window label {
+    margin-bottom: 0.2em;
+}
+
+.add-quiz-popup .add-quiz-popup-window label span {
+    color: red;
+    font-weight: bold;
+}
+
+.add-quiz-popup .add-quiz-popup-window input {
+    height: 2em;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    margin-bottom: 1em;
+
+    font-size: 1em;
+}
+
+.add-quiz-popup .add-quiz-popup-window textarea {
+    resize: none;
+
+    height: 10%;
+    padding: 0.5em;
+    margin-bottom: 1em;
+
+    font-size: 1em;
+}
+
+.add-quiz-popup .add-quiz-popup-window .add-quiz-popup-window-actions {
+    margin-top: 1.2em;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.add-quiz-popup .add-quiz-popup-window .add-quiz-popup-window-actions .cancel {
+    width: 45%;
+    height: 2em;
+
+    background-color: white;
+    border: none;
+    color: var(--primary-color);
+
+    font-size: 1.3em;
+    text-decoration: none;
+
+    cursor: pointer;
+}
+
+.add-quiz-popup .add-quiz-popup-window .add-quiz-popup-window-actions .cancel:hover {
+    text-decoration: underline;
+}
+
+.add-quiz-popup .add-quiz-popup-window .add-quiz-popup-window-actions .confirm {
+    width: 45%;
+    height: 2em;
+
+    background-color: var(--primary-color);
+    border: none;
+    border-radius: 1em;
+    color: white;
+
+    font-size: 1.3em;
+
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.add-quiz-popup .add-quiz-popup-window .add-quiz-popup-window-actions .confirm:hover {
+    background-color: white;
+    color: var(--primary-color);
+    outline: 2px solid var(--primary-color);
+    outline-offset: -2px;
+}
