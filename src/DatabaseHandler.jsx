@@ -1,4 +1,4 @@
-// Import the functions you need from the SDKs you need
+import { firebaseConfig } from "./FirebaseConfig";
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, doc, getDoc, getDocs, setDoc, updateDoc, addDoc, deleteDoc, arrayUnion, arrayRemove } from "firebase/firestore";
 // TODO: Add SDKs for Firebase products that you want to use
@@ -8,16 +8,6 @@ let db = null;
 
 // don't use this function anywhere but 'getDB()'
 async function initDB() {
-    // Your web app's Firebase configuration
-    const firebaseConfig = {
-        apiKey: "AIzaSyDkjv1utwG6_M2hR3gaQ-Q-c32E1zNEoTU",
-        authDomain: "quiz-builder-b6495.firebaseapp.com",
-        projectId: "quiz-builder-b6495",
-        storageBucket: "quiz-builder-b6495.firebasestorage.app",
-        messagingSenderId: "294092108303",
-        appId: "1:294092108303:web:2e3dd16a959d0f7d56297a"
-    };
-
     // Initialize Firebase
     const app = initializeApp(firebaseConfig);
 
