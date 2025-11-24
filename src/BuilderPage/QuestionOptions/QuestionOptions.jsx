@@ -6,6 +6,14 @@ function QuestionOptions({ quiz, initializeQuiz, lastIndex }) {
 
     const handleAddQuestion = async () => {
         defaultQuestion.order = lastIndex;
+        if (defaultQuestion.weights[0].length != quiz.results.length) {
+            Object.keys(defaultQuestion.weights).forEach((key) => {
+                defaultQuestion.weights[key] = [];
+                for (let i = 0; i < quiz.results.length; i++) {
+                    defaultQuestion.weights[key].push(1);
+                }
+            });
+        }
         await addQuizQuestion(quiz.qId, defaultQuestion);
         initializeQuiz();
     }

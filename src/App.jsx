@@ -10,8 +10,8 @@ const Pages = {
 }
 // comment
 function App() {
-    const [page, setPage] = useState(Pages.MAIN);
-    const [currentQuizId, setCurrentQuizId] = useState("dQ5qE1xfSV85ip1j3All");
+    const [page, setPage] = useState(Pages.BUILD);
+    const [currentQuizId, setCurrentQuizId] = useState("p7rWH138EC8pTiSZsgfy");
 
     if (page == Pages.MAIN) {
         return(
