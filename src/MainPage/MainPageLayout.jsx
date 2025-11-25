@@ -45,7 +45,7 @@ function MainPageLayout({ setPage, setCurrentQuizId }) {
     return(
         <div className={styles["main-page"]}>
             {addingQuiz && <AddQuizPopup setAddingQuiz={setAddingQuiz} setPage={setPage} setCurrentQuizId={setCurrentQuizId}/>}
-            <h1 id={styles["header-title"]}>Quizland</h1>
+            <h1 id={styles["header-title"]}>Quizlandd</h1>
             <div className={styles["main-page-body"]}>
                 <button id={styles["create-button"]} onClick={() => setAddingQuiz(true)}>Create Your Own Quiz &nbsp;<span>→</span></button>
                 <p id={styles["discover-text"]}>discover quizzes</p>
