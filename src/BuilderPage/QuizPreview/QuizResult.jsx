@@ -4,9 +4,9 @@ import { Result } from '../../DatabaseHandler.jsx';
 function QuizResult({ rIndex, result, onClick }) {
 
     return(
-        <div className={styles['quiz-result']} >
+        <div className={styles['quiz-result']} r-index={rIndex} onClick={onClick}>
             {/* TODO */}
-                <nav r-index={rIndex} onClick={onClick}>
+                <nav>
                     {result.title}
                 </nav>
             {/* END TODO */}

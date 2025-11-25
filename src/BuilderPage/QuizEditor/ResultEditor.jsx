@@ -17,7 +17,6 @@ function ResultEditor({ quiz, result, initQuiz }) {
 
     const handleTitleInput = (e) => {
         result.title = e.target.value;
-        console.log(result.title);
         setTitle(e.target.value);
         setButtonState(true);
     }

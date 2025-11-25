@@ -4,9 +4,9 @@ function QuizQuestion({ question=<p>placeholder question</p>, responses=[1, 2, 3
     const responseList = responses.map(response => <li key={response}>{response}</li>);
 
     return(
-        <div className={styles['quiz-question']} >
+        <div className={styles['quiz-question']} q-index={qIndex} onClick={onClick}>
             {/* TODO */}
-                <nav q-index={qIndex} onClick={onClick}>
+                <nav>
                     Quiz Operations (TODO)
                 </nav>
             {/* END TODO */}

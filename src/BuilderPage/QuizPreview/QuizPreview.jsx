@@ -3,11 +3,26 @@ import QuizQuestion from './QuizQuestion.jsx';
 import QuizResult from './QuizResult.jsx';
 
 function QuizPreview({ quiz, questions, state, setState }) {
+    const handleQuestionClick = (e) => {
+        setState({
+            ...state,
+            activeQuestion: e.currentTarget.getAttribute('q-index'),
+            activeResult: null
+        });
+    }
+
+    const handleResultClick = (e) => {
+        setState({
+            ...state,
+            activeResult: e.currentTarget.getAttribute('r-index')
+        });
+    }
+
     let qIndex = -1;
     const questionList = questions.map((question) => {
         qIndex++;
         return(
-            <QuizQuestion key={question.qId} qIndex={qIndex} question={question.question} responses={question.responses} onClick={(e) => setState({...state, activeQuestion: e.target.getAttribute('q-index'), activeResult: null})}/>
+            <QuizQuestion key={question.qId} qIndex={qIndex} question={question.question} responses={question.responses} onClick={handleQuestionClick}/>
         );
     });
 
@@ -15,7 +30,7 @@ function QuizPreview({ quiz, questions, state, setState }) {
     const resultList = quiz.results.map((result) => {
         qIndex++;
         return(
-            <QuizResult rIndex={qIndex} result={result} onClick={(e) => setState({...state, activeResult: e.target.getAttribute('r-index')})}/>
+            <QuizResult rIndex={qIndex} result={result} onClick={handleResultClick}/>
         );
     })
 
