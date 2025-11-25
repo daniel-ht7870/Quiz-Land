@@ -2,15 +2,18 @@ import { useState } from 'react';
 import BuilderPageLayout from "./BuilderPage/BuilderPageLayout.jsx";
 import MainPageLayout from "./MainPage/MainPageLayout.jsx";
 import QuizPageLayout from './QuizPage/QuizPageLayout.jsx';
+import LoginPageLayout from './LoginPage/LoginPageLayout.jsx';
 
 const Pages = {
     MAIN: 0,
     BUILD: 1,
-    QUIZ: 2
+    QUIZ: 2,
+    LOGIN: 3
 }
 // comment
 function App() {
-    const [page, setPage] = useState(Pages.MAIN);
+    const [user, setUser] = useState(null);
+    const [page, setPage] = useState(Pages.LOGIN);
     const [currentQuizId, setCurrentQuizId] = useState("p7rWH138EC8pTiSZsgfy");
 
     if (page == Pages.MAIN) {
@@ -24,6 +27,14 @@ function App() {
     } else if (page == Pages.QUIZ) {
         return(
             <QuizPageLayout setPage={setPage} quizId={currentQuizId}/>
+        );
+    } else if (page == Pages.LOGIN) {
+        if (user) {
+            setPage(Pages.MAIN);
+        }
+
+        return(
+            <LoginPageLayout setPage={setPage} setUser={setUser}/>
         );
     }
 };

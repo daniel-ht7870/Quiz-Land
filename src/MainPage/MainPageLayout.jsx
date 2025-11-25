@@ -34,7 +34,7 @@ function MainPageLayout({ setPage, setCurrentQuizId }) {
                 </div>
                 <h3 className={styles["quiz-card-name"]}>{quiz.name}</h3>
                 <p className={styles["quiz-card-author"]}>{quiz.author}</p>
-                <p className={styles["quiz-card-desc"]}>{quiz.description + ". " + quiz.description + ". " + quiz.description}</p>
+                <p className={styles["quiz-card-desc"]}>{quiz.description}</p>
                 <button className={styles["quiz-card-button"]} q-id={quiz.qId} onClick={handleTakeQuiz}>Take Quiz</button>
             </div>
         );

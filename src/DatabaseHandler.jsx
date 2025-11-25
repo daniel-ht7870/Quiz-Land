@@ -1,10 +1,12 @@
 import { firebaseConfig } from "./FirebaseConfig";
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, doc, getDoc, getDocs, setDoc, updateDoc, addDoc, deleteDoc, arrayUnion, arrayRemove } from "firebase/firestore";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 let db = null;
+let auth = null;
 
 // don't use this function anywhere but 'getDB()'
 async function initDB() {
@@ -17,6 +19,13 @@ async function initDB() {
     return db;
 };
 
+// don't use this function anywhere but 'getAuth()'
+async function initAuth() {
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    return auth;
+}
+
 // if DB initialized, return it, otherwise initialize it
 async function getDB() {
     if (!db) {
@@ -26,6 +35,50 @@ async function getDB() {
         return db;
     }
 };
+
+async function getAuthenticator() {
+    if (!auth) {
+        auth = await initAuth();
+        return auth;
+    } else if (auth) {
+        return auth;
+    }
+}
+
+async function createAccount(displayName, email, password) {
+    if (!auth) await getAuthenticator();
+
+    let user = null;
+    await createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+            user = userCredential.user;
+            return updateProfile(user, {
+                displayName: displayName
+            });
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.log(errorCode, errorMessage);
+        });
+    return user;
+}
+
+async function loginToAccount(email, password) {
+    if (!auth) await getAuthenticator();
+
+    let user = null;
+    await signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+            user = userCredential.user;
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.log(errorCode, errorMessage);
+        });
+        return user;
+}
 
 // get the array of all quizzes
 async function getQuizzes() {
@@ -257,4 +310,4 @@ const defaultResult = new Result(
     'https://placehold.co/800x800?text=Sample+Result'
 );
 
-export { getDB, getQuizzes, addQuiz, updateQuiz, getQuiz, getQuizQuestions, updateQuizQuestion, addQuizQuestion, deleteQuizQuestion, addQuizResult, deleteQuizResult, defaultQuestion, Quiz, QuizQuestion, Result };
+export { getDB, getQuizzes, addQuiz, updateQuiz, getQuiz, getQuizQuestions, updateQuizQuestion, addQuizQuestion, deleteQuizQuestion, addQuizResult, deleteQuizResult, defaultQuestion, Quiz, QuizQuestion, Result, createAccount, loginToAccount };
