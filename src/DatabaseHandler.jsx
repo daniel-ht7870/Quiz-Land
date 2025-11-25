@@ -14,11 +14,6 @@ async function initDB() {
     // Initialize Firestore
     const db = getFirestore(app);
 
-    // const querySnapshot = await getDocs(collection(db, "Quizzes"));
-    // querySnapshot.forEach((doc) => {
-    //     console.log(`${doc.id} => ${doc.data()}`);
-    // });
-
     return db;
 };
 
@@ -120,7 +115,6 @@ async function addQuizQuestion(quizId, newQuestion) {
 
     const ref = collection(db, "Quizzes", quizId, "Quiz Questions").withConverter(QuizQuestionConverter);
     await addDoc(ref, newQuestion);
-    console.log('Added a new question to the database');
 }
 
 async function deleteQuizQuestion(quizId, questionId) {

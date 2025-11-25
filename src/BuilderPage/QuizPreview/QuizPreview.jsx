@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import styles from './QuizPreview.module.css';
 import QuizQuestion from './QuizQuestion.jsx';
 import QuizResult from './QuizResult.jsx';
@@ -9,6 +10,7 @@ function QuizPreview({ quiz, questions, state, setState }) {
             activeQuestion: e.currentTarget.getAttribute('q-index'),
             activeResult: null
         });
+        setQuestionList(mapQuestions());
     }
 
     const handleResultClick = (e) => {
@@ -16,23 +18,28 @@ function QuizPreview({ quiz, questions, state, setState }) {
             ...state,
             activeResult: e.currentTarget.getAttribute('r-index')
         });
+        setResultList(mapResults());
     }
 
-    let qIndex = -1;
-    const questionList = questions.map((question) => {
-        qIndex++;
+    const mapQuestions = () => questions.map((question, i) => {
         return(
-            <QuizQuestion key={question.qId} qIndex={qIndex} question={question.question} responses={question.responses} onClick={handleQuestionClick}/>
+            <QuizQuestion key={question.qId} qIndex={i} question={question.question} responses={question.responses} onClick={handleQuestionClick}/>
         );
     });
 
-    qIndex = -1;
-    const resultList = quiz.results.map((result) => {
-        qIndex++;
+    const mapResults = () => quiz.results.map((result, i) => {
         return(
-            <QuizResult rIndex={qIndex} result={result} onClick={handleResultClick}/>
+            <QuizResult rIndex={i} result={result} onClick={handleResultClick}/>
         );
     })
+
+    const [questionList, setQuestionList] = useState(mapQuestions());
+    const [resultList, setResultList] = useState(mapResults());
+
+    useEffect(() => {
+        setQuestionList(mapQuestions());
+        setResultList(mapResults());
+    }, [questions]);
 
     return(
         <div className={styles['quiz-container']}>

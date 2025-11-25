@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { updateQuizQuestion } from "../../DatabaseHandler";
+import { deleteQuizQuestion, updateQuizQuestion } from "../../DatabaseHandler";
 import styles from './QuizEditor.module.css';
 
 let activeResponse = 0;
@@ -44,7 +44,7 @@ function QuestionEditor({ quiz, question, initQuiz }) {
 
     const handleAddResponse = (e) => {
         question.responses.push('');
-        question.weights[question.responses.length - 1] = Array.from({ length: quiz.results.length }, () => 1);
+        question.weights[question.responses.length - 1] = new Array(quiz.results.length).fill(1);
         setResponses(mapResponses(handleResponseInput));
         setButtonState(true);
     }
@@ -79,7 +79,7 @@ function QuestionEditor({ quiz, question, initQuiz }) {
         setButtonState(true);
     }
 
-    const handleSave = async () => {
+    const handleSubmitForm = async (e) => {
         if (question.question == '') {
             alert('Question body can\'t be empty');
             return;
@@ -103,11 +103,14 @@ function QuestionEditor({ quiz, question, initQuiz }) {
 
         setButtonState(false);
         await updateQuizQuestion(quiz.qId, question.qId, question);
-        await initializeQuiz();
+        await initQuiz();
     }
 
-    const handleDelete = () => {
-
+    const handleDelete = async () => {
+         if (confirm('You are about to delete a question, this action is irreversible')) {
+            await deleteQuizQuestion(quiz.qId, question.qId);
+            await initQuiz();
+         }
     }
 
     const [body, setBody] = useState();
@@ -125,7 +128,7 @@ function QuestionEditor({ quiz, question, initQuiz }) {
     }, [question]);
 
     return(
-        <form className={styles['quiz-editor']}>
+        <form className={styles['quiz-editor']} action={handleSubmitForm}>
             <div className={styles['quiz-editor-question']}>
                 <textarea placeholder="Enter the question here" value={body} onChange={handleBodyInput}/>
             </div>
@@ -138,7 +141,7 @@ function QuestionEditor({ quiz, question, initQuiz }) {
                 <h4>Weights left to Assign: {weightsLeft}</h4>
                 {weights}
             </div>
-            {buttonState ? <button type="button" className={styles['save-button-active']} onClick={handleSave}>Save Changes</button>
+            {buttonState ? <button type="submit" className={styles['save-button-active']}>Save Changes</button>
                 : <button type="button" className={styles['save-button-inactive']}>Save Changes</button>}
             <button type="button" className={styles['delete-button']} onClick={handleDelete}>Delete Question</button>
         </form>

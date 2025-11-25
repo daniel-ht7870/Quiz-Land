@@ -6,7 +6,7 @@ import QuestionOptions from './QuestionOptions/QuestionOptions.jsx';
 import QuizPreview from './QuizPreview/QuizPreview.jsx';
 import QuizEditor from './QuizEditor/QuizEditor.jsx';
 
-function BuilderPageLayout({ setPage, quizId, header=<p>Quizland</p> }) {
+function BuilderPageLayout({ setPage, quizId, header=<p>Back to Homepage</p> }) {
     const [state, setState] = useState({
         quiz: null,
         questions: null,
