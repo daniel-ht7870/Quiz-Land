@@ -1,0 +1,173 @@
+@font-face {
+    font-family: myFont;
+    src: url('../assets/Tomatoes-O8L8.ttf');
+}
+
+/* #main-page {
+    background-size: 100vw 100vh;
+    background-image: linear-gradient(to bottom, purple, pink, white);
+    background-repeat: no-repeat;
+    background-position: top center;
+    background-attachment: fixed;
+
+    padding: 0;
+    margin: 0;
+
+    overflow-y: auto;
+} */
+
+#header-title {
+    z-index: 0;
+    position: fixed;
+
+    color: white;
+    font-family: myFont;
+    font-size: 13vh;
+
+    user-select: none;
+}
+
+.main-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+}
+
+.main-page-body {
+    z-index: 1;
+    box-sizing: border-box;
+    padding: 5em;
+    margin-top: 50vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    background-image: linear-gradient(to bottom, white, #f4f3f2);
+    /* background-color: white; */
+    max-width: 100%;
+    width: 100%;
+    height: 100%;
+
+    border-radius: 3em 3em 0 0;
+}
+
+#create-button {
+    padding: 1.2em;
+    background-color: var(--primary-color);
+    border: none;
+    border-radius: 2em;
+
+    color: white;
+    box-shadow: 0px 0px 10px 3px hsla(0, 0%, 0%, 0.1);
+
+    font-size: 1.5em;
+    transition: background-color 0.2s, color 0.2s;
+    cursor: pointer;
+}
+
+#create-button span {
+    font-size: 1.2em;
+    transition: margin-left 0.2s;
+}
+
+#create-button:hover {
+    background-color: white;
+    background-image: none;
+    outline: 3px solid var(--primary-color);
+    outline-offset: -3px;
+    color: var(--primary-color);
+}
+
+#create-button:hover span {
+    margin-left: 0.5em;
+}
+
+#discover-text {
+    margin-top: 2em;
+    font-size: 1.5em;
+}
+
+#down-arrow {
+    margin-top: 0.5em;
+    font-size: 3em;
+    transform: scale(0.75, 2.5);
+}
+
+.quizzes {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+.quiz-card {
+    flex-basis: 45%;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 1em 2em 1em 2em;
+    margin: 2em;
+    overflow: hidden;
+
+    border-radius: 1.5em;
+    box-shadow: 0px 0px 10px 3px hsla(0, 0%, 0%, 0.1);
+
+    background-color: white;
+    transition: box-shadow 0.2s;
+}
+
+.quiz-card:hover {
+    box-shadow: 0px 0px 10px 3px var(--primary-color);
+}
+
+.quiz-card-image-container {
+    padding: 0;
+    margin-top: -1em;
+    margin-left: -2em;
+    margin-right: -2em;
+
+    width: 100% + 4em;
+    height: 10em;
+    overflow: hidden;
+}
+
+.quiz-card-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.quiz-card .quiz-card-name {
+    margin-bottom: 0.3em;
+}
+
+.quiz-card .quiz-card-author {
+    color: gray;
+    margin-top: 0;
+}
+
+.quiz-card .quiz-card-desc {
+    text-indent: 2em;
+}
+
+.quiz-card .quiz-card-button {
+    width: 100%;
+    padding: 0.3em;
+
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 1em;
+
+    text-align: center;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.quiz-card .quiz-card-button:hover {
+    background-color: white;
+    color: var(--primary-color);
+    outline: 2px solid var(--primary-color);
+    outline-offset: -2px;
+}
