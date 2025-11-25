@@ -3,7 +3,7 @@ import styles from './AddQuizPopup.module.css';
 import { Pages } from '../../App.jsx';
 import { Quiz, addQuiz } from '../../DatabaseHandler.jsx';
 
-function AddQuizPopup({ setAddingQuiz, setPage, setCurrentQuizId }) {
+function AddQuizPopup({ setAddingQuiz, setPage, setCurrentQuizId, user }) {
     const [qName, setQName] = useState('');
     const [qAuthor, setQAuthor] = useState('');
     const [qDesc, setQDesc] = useState('');
@@ -32,7 +32,8 @@ function AddQuizPopup({ setAddingQuiz, setPage, setCurrentQuizId }) {
         }
         const quizToAdd = new Quiz(
             null, // null id only acceptable when adding to database
-            qAuthor,
+            qAuthor != '' ? qAuthor : user.displayName,
+            user.uid,
             qDesc,
             imgUrlToSubmit,
             qName,
@@ -49,8 +50,8 @@ function AddQuizPopup({ setAddingQuiz, setPage, setCurrentQuizId }) {
                 <h3>Create a Quiz</h3>
                 <label htmlFor="qName"><span>*</span> Quiz Name</label>
                 <input key="0" type="text" id="qName" value={qName} onChange={handleQNameInput} required></input>
-                <label htmlFor="qAuthor"><span>*</span> Quiz Author</label>
-                <input key="1" type="text" id="qAuthor" value={qAuthor} onChange={handleQAuthorInput} required></input>
+                <label htmlFor="qAuthor">Author Alias (optional, if left empty your display name will be used)</label>
+                <input key="1" type="text" id="qAuthor" value={qAuthor} onChange={handleQAuthorInput}></input>
                 <label htmlFor="qDesc"><span>*</span> Quiz Description</label>
                 <textarea key="2" id="qDesc" value={qDesc} onChange={handleQDescInput} required></textarea>
                 <label htmlFor="qImg">Image URL</label>

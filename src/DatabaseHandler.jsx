@@ -1,6 +1,6 @@
 import { firebaseConfig } from "./FirebaseConfig";
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, doc, getDoc, getDocs, setDoc, updateDoc, addDoc, deleteDoc, arrayUnion, arrayRemove } from "firebase/firestore";
+import { getFirestore, query, where, collection, doc, getDoc, getDocs, setDoc, updateDoc, addDoc, deleteDoc, arrayUnion, arrayRemove } from "firebase/firestore";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -90,15 +90,35 @@ async function getQuizzes() {
     const quizArray = [];
 
     if (colSnap) {
-        colSnap.forEach(question => {
-            quizArray.push(QuizConverter.fromFirestore(question));
+        colSnap.forEach(quiz => {
+            quizArray.push(QuizConverter.fromFirestore(quiz));
         });
         return quizArray;
     } else {
         console.log("No such document!");
     }
 
-    return 'temp';
+    return null;
+}
+
+async function getUserQuizzes(uid) {
+    if (!db) await getDB();
+
+    const q = query(collection(db, "Quizzes"), where("authorId", "==", uid));
+    const querySnapshot = await getDocs(q);
+
+    const quizArray = [];
+
+    if (querySnapshot) {
+        querySnapshot.forEach(quiz => {
+            quizArray.push(QuizConverter.fromFirestore(quiz));
+        });
+        return quizArray;
+    } else {
+        console.log("No quizzes found");
+    }
+
+    return null;
 }
 
 // get the individual quiz by ID
@@ -133,6 +153,13 @@ async function updateQuiz(quiz) {
 
     const ref = doc(db, "Quizzes", quiz.qId).withConverter(QuizConverter);
     await setDoc(ref, quiz);
+}
+
+async function deleteQuiz(quizId) {
+    if (!db) await getDB();
+
+    const ref = doc(db, "Quizzes", quizId);
+    await deleteDoc(ref);
 }
 
 // get an array of all questions in a quiz
@@ -210,9 +237,10 @@ async function deleteQuizResult(quizId, result) {
 }
 
 class Quiz {
-    constructor(qId, author, description, image, name, results) {
+    constructor(qId, author, aId, description, image, name, results) {
         this.qId = qId;
         this.author = author;
+        this.aId = aId;
         this.description = description;
         this.image = image;
         this.name = name;
@@ -224,6 +252,7 @@ const QuizConverter = {
     toFirestore: (quiz) => {
         return {
             author: quiz.author,
+            authorId: quiz.aId,
             description: quiz.description,
             image: quiz.image,
             'quiz-name': quiz.name,
@@ -238,7 +267,7 @@ const QuizConverter = {
         for (let i = 0; i < data.results.length; i++) {
             results.push(new Result(i, data.results[i].title, data.results[i].description, data.results[i].image));
         }
-        return new Quiz(snapshot.id, data.author, data.description, data.image, data['quiz-name'], results)        
+        return new Quiz(snapshot.id, data.author, data.authorId, data.description, data.image, data['quiz-name'], results)        
     }
 }
 
@@ -310,4 +339,4 @@ const defaultResult = new Result(
     'https://placehold.co/800x800?text=Sample+Result'
 );
 
-export { getDB, getQuizzes, addQuiz, updateQuiz, getQuiz, getQuizQuestions, updateQuizQuestion, addQuizQuestion, deleteQuizQuestion, addQuizResult, deleteQuizResult, defaultQuestion, Quiz, QuizQuestion, Result, createAccount, loginToAccount };
+export { getDB, getQuizzes, getUserQuizzes, addQuiz, deleteQuiz, updateQuiz, getQuiz, getQuizQuestions, updateQuizQuestion, addQuizQuestion, deleteQuizQuestion, addQuizResult, deleteQuizResult, defaultQuestion, Quiz, QuizQuestion, Result, createAccount, loginToAccount };

@@ -4,7 +4,7 @@ import { Pages } from "../App.jsx";
 import { getQuizzes } from "../DatabaseHandler.jsx";
 import AddQuizPopup from "./AddQuizPopup/AddQuizPopup.jsx";
 
-function MainPageLayout({ setPage, setCurrentQuizId }) {
+function MainPageLayout({ setPage, setCurrentQuizId, user }) {
     const [quizzes, setQuizzes] = useState(null);
     const [addingQuiz, setAddingQuiz] = useState(false);
 
@@ -44,10 +44,13 @@ function MainPageLayout({ setPage, setCurrentQuizId }) {
 
     return(
         <div className={styles["main-page"]}>
-            {addingQuiz && <AddQuizPopup setAddingQuiz={setAddingQuiz} setPage={setPage} setCurrentQuizId={setCurrentQuizId}/>}
+            {addingQuiz && <AddQuizPopup setAddingQuiz={setAddingQuiz} setPage={setPage} setCurrentQuizId={setCurrentQuizId} user={user}/>}
             <h1 id={styles["header-title"]}>Quizland</h1>
             <div className={styles["main-page-body"]}>
-                <button id={styles["create-button"]} onClick={() => setAddingQuiz(true)}>Create Your Own Quiz &nbsp;<span>→</span></button>
+                <div id={styles["actions"]}>
+                    <button id={styles["edit-button"]} onClick={() => setPage(Pages.EDIT)}>Edit Your Quizzes</button>
+                    <button id={styles["create-button"]} onClick={() => setAddingQuiz(true)}>Create New Quiz &nbsp;<span>→</span></button>
+                </div>
                 <p id={styles["discover-text"]}>discover quizzes</p>
                 <p id={styles["down-arrow"]}>↓</p>
                 <div className={styles["quizzes"]}>

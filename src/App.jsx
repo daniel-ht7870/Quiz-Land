@@ -3,12 +3,14 @@ import BuilderPageLayout from "./BuilderPage/BuilderPageLayout.jsx";
 import MainPageLayout from "./MainPage/MainPageLayout.jsx";
 import QuizPageLayout from './QuizPage/QuizPageLayout.jsx';
 import LoginPageLayout from './LoginPage/LoginPageLayout.jsx';
+import EditPageLayout from './EditPage/EditPageLayout.jsx';
 
 const Pages = {
     MAIN: 0,
     BUILD: 1,
     QUIZ: 2,
-    LOGIN: 3
+    LOGIN: 3,
+    EDIT: 4
 }
 // comment
 function App() {
@@ -18,7 +20,7 @@ function App() {
 
     if (page == Pages.MAIN) {
         return(
-            <MainPageLayout setPage={setPage} setCurrentQuizId={setCurrentQuizId}/>
+            <MainPageLayout setPage={setPage} setCurrentQuizId={setCurrentQuizId} user={user}/>
         );
     } else if (page == Pages.BUILD) {
         return(
@@ -35,6 +37,14 @@ function App() {
 
         return(
             <LoginPageLayout setPage={setPage} setUser={setUser}/>
+        );
+    } else if (page == Pages.EDIT) {
+        if (!user) {
+            setPage(Pages.LOGIN);
+        }
+
+        return(
+            <EditPageLayout setPage={setPage} setQuizId={setCurrentQuizId} user={user}/>
         );
     }
 };
