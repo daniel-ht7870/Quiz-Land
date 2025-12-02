@@ -66,7 +66,7 @@ function QuestionEditor({ quiz, question, initQuiz }) {
             return;
         }
 
-        let weightSum = question.weights[activeResponse];
+        let weightSum = [...question.weights[activeResponse]];
         weightSum[e.target.getAttribute('w-id')] = parseInt(e.target.value);
         weightSum = weightSum.reduce((acc, cur) => acc + cur, 0);
         if (weightSum > quiz.results.length) {
