@@ -2,12 +2,15 @@ import { useState } from "react";
 import styles from './QuizPage.module.css';
 
 function QuizQuestions({ quiz, questions, setResult }) {
+    let rId = -2;
     const questionMap = questions.map((question) => {
+        rId++;
         const responseMap = question.responses.map((response, index) => {
+            rId++;
             return(
                 <div className={styles['quiz-page-question-response']}>
-                    <input type="radio" id={response} name={question.question} value={question.weights[index]} required></input>
-                    <label htmlFor={response}>{response}</label>
+                    <input type="radio" id={rId} name={question.qId} value={question.weights[index]} required></input>
+                    <label htmlFor={rId}>{response}</label>
                 </div>
             );
         });
@@ -22,7 +25,7 @@ function QuizQuestions({ quiz, questions, setResult }) {
     const handleSubmit = (e) => {
         let weights = new Array(quiz.results.length).fill(0);
         questions.forEach((question) => {
-            weights = e.get(question.question).split(',').map(Number).map((n, i) => n + weights[i]);
+            weights = e.get(question.qId).split(',').map(Number).map((n, i) => n + weights[i]);
         });
         let result = 0;
         for (let i = 0; i < weights.length; i++) {
