@@ -35,7 +35,7 @@ From there, you should see a link in your terminal of choice to the local port h
 
   VITE v7.2.6  ready in 263 ms
 
-  ➜  Local:   http://localhost:5173/Quiz-Land/
+  ➜  Local:   http://localhost:5173/Quiz-Land/ <-- paste this link into your browser
   ➜  Network: use --host to expose
   ➜  press h + enter to show help
 ```
