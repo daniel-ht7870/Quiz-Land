@@ -12,7 +12,11 @@ Currently, there are 5 pages in _Quizland_:
 
 A demonstration showcasing the usage of _Quizland_ and a short tutorial can be found [here](https://youtu.be/ELRiAmxP8tk).
 
-# Building the project
+# Accessing Quizland
+
+_Quizland_ is currently hosted on GitHub Pages, and you can access it [here](https://daniel-ht7870.github.io/Quiz-Land/).
+
+# Building the Project
 
 _Quizland_ uses __NPM__ to manage dependencies and run a local server. To install all package requirements run the following command in the project directory:
 
