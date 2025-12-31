@@ -2,7 +2,7 @@
 
 This web-based application allows users to create accounts and take fun quizzes created by other users. At the end of a quiz, the application makes predictions based on the user responses (e.g. "Are you a dog person or a cat person?" quiz).
 
-Currently, there are # pages:
+Currently, there are 5 pages in _Quizland_:
 
 * The __Login/Sign Up Page__ allows users to create and log into existing accounts. The account authentication services are hosted by Firebase Authentication.
 * The __Main Page__ is the next destination following user authentication. On this page, users can browse an assortment of quizzes to take, or navigate to another page.
